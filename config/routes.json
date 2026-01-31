@@ -1,0 +1,57 @@
+{
+  "routes": [
+    {
+      "path": "/health",
+      "methods": ["GET"],
+      "corsPolicy": "anything-goes",
+      "handler": {
+        "module": "$import(@zuplo/runtime)",
+        "export": "urlRewriteHandler",
+        "options": {
+          "rewritePattern": "https://echo.zuplo.io"
+        }
+      },
+      "label": "Health Check",
+      "description": "Public health check endpoint - no authentication required"
+    },
+    {
+      "path": "/api/v1/me",
+      "methods": ["GET"],
+      "corsPolicy": "anything-goes",
+      "policies": {
+        "inbound": ["jwt-auth-policy"]
+      },
+      "handler": {
+        "module": "$import(./modules/user-handler)",
+        "export": "default"
+      },
+      "label": "Get Current User",
+      "description": "Protected endpoint that returns user info from JWT token"
+    },
+    {
+      "path": "/api/v1/protected",
+      "methods": ["GET", "POST"],
+      "corsPolicy": "anything-goes",
+      "policies": {
+        "inbound": ["jwt-auth-policy"]
+      },
+      "handler": {
+        "module": "$import(./modules/protected-handler)",
+        "export": "default"
+      },
+      "label": "Protected Resource",
+      "description": "Protected endpoint that requires valid JWT token"
+    },
+    {
+      "path": "/api/v1/public",
+      "methods": ["GET"],
+      "corsPolicy": "anything-goes",
+      "handler": {
+        "module": "$import(./modules/public-handler)",
+        "export": "default"
+      },
+      "label": "Public Resource",
+      "description": "Public endpoint - no authentication required"
+    }
+  ]
+}

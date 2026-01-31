@@ -1,0 +1,30 @@
+{
+  "policies": [
+    {
+      "name": "jwt-auth-policy",
+      "policyType": "jwt-inbound",
+      "handler": {
+        "export": "JWTInboundPolicy",
+        "module": "$import(@zuplo/runtime)"
+      },
+      "config": {
+        "secret": {
+          "jwksUrl": "https://api.workos.com/sso/jwks/${env.WORKOS_CLIENT_ID}"
+        },
+        "audience": "${env.WORKOS_CLIENT_ID}",
+        "issuer": "https://api.workos.com/sso"
+      }
+    }
+  ],
+  "corsPolicies": [
+    {
+      "name": "anything-goes",
+      "allowOrigins": ["*"],
+      "allowMethods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+      "allowHeaders": ["*"],
+      "exposeHeaders": ["*"],
+      "maxAge": 86400,
+      "allowCredentials": false
+    }
+  ]
+}

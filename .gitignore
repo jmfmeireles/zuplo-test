@@ -1,0 +1,3 @@
+# Add Zuplo-specific files
+.zuplo/
+*.zuplo.log

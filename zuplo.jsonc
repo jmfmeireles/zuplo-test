@@ -1,0 +1,23 @@
+{
+  "$schema": "https://cdn.zuplo.com/schemas/zuplo.schema.json",
+  "name": "arch-next-js-api-gateway",
+  "version": "1.0.0",
+  "description": "API Gateway for testing JWT token validation with WorkOS",
+  "build": {
+    "outDir": ".zuplo"
+  },
+  "routes": "./config/routes.json",
+  "policies": "./config/policies.json",
+  "modules": "./modules",
+  "handlers": "./modules",
+  "environment": [
+    {
+      "name": "WORKOS_API_URL",
+      "secret": false
+    },
+    {
+      "name": "WORKOS_CLIENT_ID",
+      "secret": false
+    }
+  ]
+}
